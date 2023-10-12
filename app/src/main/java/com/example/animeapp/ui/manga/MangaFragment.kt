@@ -19,7 +19,7 @@ class MangaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(MangaViewModel::class.java)
+            ViewModelProvider(this)[MangaViewModel::class.java]
 
         _binding = FragmentMangaBinding.inflate(inflater, container, false)
         return binding.root

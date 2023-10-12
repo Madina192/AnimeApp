@@ -1,16 +1,23 @@
 package com.example.animeapp.remote
 
+import com.example.animeapp.models.Anime
 import com.example.animeapp.models.AnimeModel
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeApiService {
-    @GET("anime/")
-    fun getAnime(
-        @Query("q") keyWord: String,
-        @Query("key") key: String = "38419248-534f53ef765c278655a0fd6be",
-        @Query("per_page") perPage: Int = 3,
-        @Query("page") page: Int
-    ): Response<AnimeModel>
+    @GET("anime")
+    fun getAnimes(
+        @Query("page[limit]") limit: Int ?= 5,
+        @Query("page[offset]") page: Int
+    ): Call<AnimeModel>
+
+    @GET("anime/{id}")
+    fun getAnimeById(
+        @Path("id") id : String
+    ) : Call<Anime>
+
 }
