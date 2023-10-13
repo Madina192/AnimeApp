@@ -16,7 +16,7 @@ class AnimeFragment : Fragment() {
     private val animeViewModel: AnimeViewModel by viewModels()
     private val adapter = AnimeAdapter()
     var page = 0
-    var id = "1"
+    //var id = "1"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,32 +30,30 @@ class AnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        getAnimeById()
-        //getAnimes()
-//        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                if (!recyclerView.canScrollVertically(1)) {
-//                    page += 5
-//                    //getAnimes()
-//                }
-//            }
-//        })
+        getAnimes()
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    page += 3
+                    getAnimes()
+                }
+            }
+        })
     }
 
-//    fun getAnimes() {
-//        animeViewModel.getAnimes(page)
-//        animeViewModel.animeList.observe(requireActivity()) { animes ->
-//            adapter.list = animes
-//        }
-//    }
-
-    fun getAnimeById() {
-        //animeViewModel.getAnimeById(id)
-        animeViewModel.getAnimeById(id).observe(requireActivity()) {anime ->
-            adapter.list.add(anime)
+    fun getAnimes() {
+        animeViewModel.getAnimes(page = page).observe(requireActivity()) { animes ->
+            adapter.setList(animes)
         }
     }
+
+//    fun getAnimeById() {
+//        //animeViewModel.getAnimeById(id)
+//        animeViewModel.getAnimeById(id).observe(requireActivity()) {anime ->
+//            adapter.list.add(anime)
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

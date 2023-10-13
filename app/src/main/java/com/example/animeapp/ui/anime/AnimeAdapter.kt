@@ -10,7 +10,10 @@ import com.example.animeapp.models.Anime
 
 class AnimeAdapter : Adapter<AnimeAdapter.AnimeViewHolder>() {
 
-    var list = arrayListOf<Anime>()
+    private var list = listOf<Anime>()
+    fun setList(listOfAnime: ArrayList<Anime>) {
+        list = listOfAnime
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder =
         AnimeViewHolder(
@@ -21,7 +24,6 @@ class AnimeAdapter : Adapter<AnimeAdapter.AnimeViewHolder>() {
             )
         )
 
-
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
@@ -30,9 +32,9 @@ class AnimeAdapter : Adapter<AnimeAdapter.AnimeViewHolder>() {
 
     inner class AnimeViewHolder(private val binding: ItemAnimeBinding) : ViewHolder(binding.root) {
         fun onBind(anime: Anime) {
-            binding.tvTitle.text = anime.data.attributes.titles.en
-            binding.tvAge.text = anime.data.attributes.ageRatingGuide
-            binding.ivAnime.load(anime.data.attributes.posterImage.small)
+            binding.tvTitle.text = anime.attributes.titles.en
+            binding.tvAge.text = anime.attributes.ageRatingGuide
+            binding.ivAnime.load(anime.attributes.posterImage.small)
         }
     }
 }

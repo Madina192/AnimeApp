@@ -2,11 +2,11 @@ package com.example.animeapp.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Anime(
-    val data : Data
-)
+//data class Anime(
+//    val data : Data
+//)
 
-data class Data(
+data class Anime(
     val id: String,
     val type: String,
     val links: DataLinks,
