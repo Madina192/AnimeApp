@@ -2,13 +2,28 @@ package com.example.animeapp.ui.anime
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.animeapp.databinding.ItemAnimeBinding
 import com.example.animeapp.models.Anime
 
-class AnimeAdapter : Adapter<AnimeAdapter.AnimeViewHolder>() {
+class AnimeAdapter : PagingDataAdapter<Anime, AnimeAdapter.AnimeViewHolder>(DIFF_UTIL) {
+
+    companion object {
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<Anime>() {
+            override fun areItemsTheSame(oldItem: Anime, newItem: Anime): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Anime, newItem: Anime): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
 
     private var list = listOf<Anime>()
     fun setList(listOfAnime: ArrayList<Anime>) {
